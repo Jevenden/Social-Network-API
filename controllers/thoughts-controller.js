@@ -12,4 +12,9 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+  createNewThought(req, res) {
+    Thoughts.create(req.body)
+      .then((dbUsersData) => res.json(dbUsersData))
+      .catch((err) => res.status(500).json(err));
+  },
 };
