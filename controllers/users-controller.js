@@ -36,4 +36,20 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+  updateUser({ params, body }, res) {
+    Users.findByIdAndUpdate({ _id: params.id }, body, { new: true })
+      .then((dbUsersData) => {
+        if (!dbUsersData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no one here with that id, playa." });
+          return;
+        }
+        res.json(dbUsersData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
 };
