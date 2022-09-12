@@ -52,4 +52,20 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+  deleteUser({ params }, res) {
+    Users.findOneAndDelete({ _id: params.id }, { new: true })
+      .then((dbUsersData) => {
+        if (!dbUsersData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no one here with that id, playa." });
+          return;
+        }
+        res.json(dbUsersData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
 };
