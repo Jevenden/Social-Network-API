@@ -33,4 +33,20 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+  deleteThought({ params }, res) {
+    Thoughts.findOneAndDelete({ _id: params.id }, { new: true })
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no thought with that id, playa." });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
 };
