@@ -4,10 +4,27 @@ module.exports = {
   getAllThoughts(req, res) {
     Thoughts.find({})
       .select("-__v")
-      .then((dbUsersData) => res.json(dbUsersData))
+      .then((dbThoughtsData) => res.json(dbThoughtsData))
       .catch((err) => {
         console.error({ message: err });
         return res.status(500).json(err);
+      });
+  },
+  getThoughtById({ params }, res) {
+    Thoughts.findOne({ _id: params.id })
+      .select("-__v")
+      .then((dbThoughtsData) => {
+        if (!dbThoughtsData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no one here with that ID, playa." });
+          return;
+        }
+        res.json(dbThoughtsData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
       });
   },
   createNewThought({ params, body }, res) {
