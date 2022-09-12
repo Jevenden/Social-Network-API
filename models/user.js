@@ -14,12 +14,12 @@ const userSchema = new Schema(
       required: true,
       match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/],
     },
-    // thoughts: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Thoughts",
-    //   },
-    // ],
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "thoughts",
+      },
+    ],
     // friends: [
     //   {
     //     type: Schema.Types.ObjectId,
@@ -39,6 +39,6 @@ const userSchema = new Schema(
 //   return this.friends.length;
 // });
 
-const Users = model("Users", userSchema);
+const Users = model("users", userSchema);
 
 module.exports = Users;

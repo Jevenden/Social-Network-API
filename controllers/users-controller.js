@@ -4,7 +4,7 @@ module.exports = {
   getAllUsers(req, res) {
     Users.find({})
       //   .populate({ path: "friends" })
-      //   .populate({ path: "thoughts" })
+      .populate({ path: "thoughts" })
       .select("-__v")
       .then((dbUsersData) => res.json(dbUsersData))
       .catch((err) => {
