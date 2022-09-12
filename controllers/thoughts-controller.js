@@ -50,6 +50,22 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+  updateThought({ params, body }, res) {
+    Thoughts.findByIdAndUpdate({ _id: params.id }, body, { new: true })
+      .then((dbThoughtsData) => {
+        if (!dbThoughtsData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no thought here with that id, playa." });
+          return;
+        }
+        res.json(dbThoughtsData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
   deleteThought({ params }, res) {
     Thoughts.findOneAndDelete({ _id: params.id }, { new: true })
       .then((dbThoughtData) => {
