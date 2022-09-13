@@ -3,7 +3,7 @@ const { Users, Thoughts } = require("../models");
 module.exports = {
   getAllUsers(req, res) {
     Users.find({})
-      //   .populate({ path: "friends" })
+      .populate({ path: "friends" })
       .populate({ path: "thoughts" })
       .select("-__v")
       .then((dbUsersData) => res.json(dbUsersData))
@@ -19,8 +19,8 @@ module.exports = {
   },
   getUserById({ params }, res) {
     Users.findOne({ _id: params.id })
-      //   .populate({ path: "friends" })
-      //   .populate({ path: "thoughts" })
+      .populate({ path: "friends" })
+      .populate({ path: "thoughts" })
       .select("-__v")
       .then((dbUsersData) => {
         if (!dbUsersData) {
@@ -54,6 +54,26 @@ module.exports = {
   },
   deleteUser({ params }, res) {
     Users.findOneAndDelete({ _id: params.id }, { new: true })
+      .then((dbUsersData) => {
+        if (!dbUsersData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no one here with that id, playa." });
+          return;
+        }
+        res.json(dbUsersData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
+  addFriend({ params }, res) {
+    Users.findOneAndUpdate(
+      { _id: params.id },
+      { $addToSet: { friends: params.friendsId } },
+      { new: true }
+    )
       .then((dbUsersData) => {
         if (!dbUsersData) {
           res
