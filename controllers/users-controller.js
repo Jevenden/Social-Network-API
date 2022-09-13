@@ -88,4 +88,24 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+  deleteFriend({ params }, res) {
+    Users.findOneAndUpdate(
+      { _id: params.id },
+      { $pull: { friends: params.friendsId } },
+      { new: true }
+    )
+      .then((dbUsersData) => {
+        if (!dbUsersData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no one here with that id, playa." });
+          return;
+        }
+        res.json(dbUsersData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
 };
