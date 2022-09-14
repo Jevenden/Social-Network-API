@@ -36,4 +36,8 @@ Afterwards you can issue CRUD operations through postman, insomnia, or a similar
 
 Github Repo for this application: https://github.com/Jevenden/Social-Network-API
 
-Demo Video: https://drive.google.com/file/d/1TSjUb5cUe_VC43QX8oAAg6qf__QcFqCY/view
+Demo Videos:
+
+https://drive.google.com/file/d/1wwO7yPE0LmZ869gCUXiJZG6VZY1V2XUo/view
+
+https://drive.google.com/file/d/1tc-DDJqmZRxyrLeGVL4xnhcV2Dmf7ND_/view
