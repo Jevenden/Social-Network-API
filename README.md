@@ -1,6 +1,7 @@
 # Social-Network-API
 
-![Screenshot](SMAP.png "My Screenshot")
+![Screenshot]![SMAP](https://user-images.githubusercontent.com/102879070/190270220-8d811dca-b77e-48e1-8c19-5b219bed035d.png)
+
 
 ## Table of Contents:
 
