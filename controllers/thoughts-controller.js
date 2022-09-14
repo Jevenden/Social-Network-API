@@ -1,6 +1,7 @@
 const { Users, Thoughts } = require("../models");
 
 module.exports = {
+  // Route to get all thoughts
   getAllThoughts(req, res) {
     Thoughts.find({})
       .select("-__v")
@@ -10,6 +11,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+    // Route to get a single thought by ID
   getThoughtById({ params }, res) {
     Thoughts.findOne({ _id: params.id })
       .select("-__v")
@@ -27,7 +29,8 @@ module.exports = {
         res.sendStatus(404);
       });
   },
-  createNewThought({ params, body }, res) {
+  // Route to get create a new thought
+  createNewThought({ body }, res) {
     Thoughts.create(body)
       .then((dbThoughtData) => {
         return Users.findOneAndUpdate(
@@ -50,6 +53,7 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+    // Route to update an existing thought by ID
   updateThought({ params, body }, res) {
     Thoughts.findByIdAndUpdate({ _id: params.id }, body, { new: true })
       .then((dbThoughtsData) => {
@@ -66,6 +70,7 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+    // Route to delete an existing thought by ID
   deleteThought({ params }, res) {
     Thoughts.findOneAndDelete({ _id: params.id }, { new: true })
       .then((dbThoughtData) => {
@@ -76,6 +81,48 @@ module.exports = {
           return;
         }
         res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
+  // Route to add a new reaction
+  addReaction({ params, body }, res) {
+    Thoughts.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $addToSet: { reactions: body } },
+      { new: true }
+    )
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no thought here with that id, playa." });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  },
+  // Route to delete an existing thought by ID
+  deleteReaction({ params }, res) {
+    Thoughts.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $pull: { reactions: { reactionId: params.reactionId } } },
+      { new: true }
+    )
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          res
+            .status(404)
+            .json({ message: "Ain't no thought here with that id, playa." });
+          return;
+        }
+        res.json("Reaction deleted, yo");
       })
       .catch((err) => {
         console.log(err);

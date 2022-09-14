@@ -1,5 +1,6 @@
-const { Schema, model, Types } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
+// Perameters for the user schema; taking in the user name, email (with validation), and populating with thoughts and friends.
 const userSchema = new Schema(
   {
     userName: {
@@ -35,9 +36,10 @@ const userSchema = new Schema(
   }
 );
 
-// userSchema.virtual("friendCount").get(function () {
-//   return this.friends.length;
-// });
+// A virtual to get the user's friend count
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
 
 const Users = model("users", userSchema);
 
