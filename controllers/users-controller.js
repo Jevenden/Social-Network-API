@@ -27,9 +27,7 @@ module.exports = {
       .select("-__v")
       .then((dbUsersData) => {
         if (!dbUsersData) {
-          res
-            .status(404)
-            .json({ message: "Ain't no one here with that name, playa." });
+          res.status(404).json({ message: "No user found with that id." });
           return;
         }
         res.json(dbUsersData);
@@ -44,9 +42,7 @@ module.exports = {
     Users.findByIdAndUpdate({ _id: params.id }, body, { new: true })
       .then((dbUsersData) => {
         if (!dbUsersData) {
-          res
-            .status(404)
-            .json({ message: "Ain't no one here with that id, playa." });
+          res.status(404).json({ message: "No user found with that id." });
           return;
         }
         res.json(dbUsersData);
@@ -61,9 +57,7 @@ module.exports = {
     Users.findOneAndDelete({ _id: params.id }, { new: true })
       .then((user) =>
         !user
-          ? res
-              .status(404)
-              .json({ message: "Sorry; there is no user with that ID." })
+          ? res.status(404).json({ message: "No user found with that id." })
           : Thoughts.deleteMany({ _id: { $in: user.thoughts } })
       )
       .then(() =>
@@ -83,9 +77,7 @@ module.exports = {
     )
       .then((dbUsersData) => {
         if (!dbUsersData) {
-          res
-            .status(404)
-            .json({ message: "Ain't no one here with that id, playa." });
+          res.status(404).json({ message: "No user found with that id." });
           return;
         }
         res.json(dbUsersData);
@@ -104,9 +96,7 @@ module.exports = {
     )
       .then((dbUsersData) => {
         if (!dbUsersData) {
-          res
-            .status(404)
-            .json({ message: "Ain't no one here with that id, playa." });
+          res.status(404).json({ message: "No user found with that id." });
           return;
         }
         res.json(dbUsersData);

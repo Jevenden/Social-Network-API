@@ -19,7 +19,7 @@ module.exports = {
         if (!dbThoughtsData) {
           res
             .status(404)
-            .json({ message: "Ain't no one here with that ID, playa." });
+            .json({ message: "No thought found with that id." });
           return;
         }
         res.json(dbThoughtsData);
@@ -43,7 +43,7 @@ module.exports = {
         if (!dbUserData) {
           res
             .status(404)
-            .json({ message: "Ain't no one here with that ID, playa." });
+            .json({ message: "No user found with that id." });
           return;
         }
         res.json(dbUserData);
@@ -60,7 +60,7 @@ module.exports = {
         if (!dbThoughtsData) {
           res
             .status(404)
-            .json({ message: "Ain't no thought here with that id, playa." });
+            .json({ message: "No thought found with that id." });
           return;
         }
         res.json(dbThoughtsData);
@@ -77,10 +77,10 @@ module.exports = {
         if (!dbThoughtData) {
           res
             .status(404)
-            .json({ message: "Ain't no thought with that id, playa." });
+            .json({ message: "No thought found with that id." });
           return;
         }
-        res.json(dbThoughtData);
+        res.json({message: "Thought deleted."});
       })
       .catch((err) => {
         console.log(err);
@@ -98,7 +98,7 @@ module.exports = {
         if (!dbThoughtData) {
           res
             .status(404)
-            .json({ message: "Ain't no thought here with that id, playa." });
+            .json({ message: "No thought found with that id." });
           return;
         }
         res.json(dbThoughtData);
@@ -119,10 +119,10 @@ module.exports = {
         if (!dbThoughtData) {
           res
             .status(404)
-            .json({ message: "Ain't no thought here with that id, playa." });
+            .json({ message: "No reaction found with that id." });
           return;
         }
-        res.json("Reaction deleted, yo");
+        res.json("Reaction deleted.");
       })
       .catch((err) => {
         console.log(err);
